@@ -266,17 +266,22 @@ section.view.active{display:block; animation:fadein .25s ease;}
 /* ---- Days ---- */
 .daystrip{display:flex; gap:8px; overflow-x:auto; padding:2px 2px 10px;}
 .daystub{
-  flex:0 0 auto; width:64px; text-align:center; background:#fff; border:1.5px solid var(--line);
-  border-radius:12px; padding:8px 4px 7px; position:relative;
+  flex:0 0 auto; width:84px; text-align:center; background:#fff; border:1.5px solid var(--line);
+  border-radius:12px; padding:9px 5px 8px; position:relative;
 }
 .daystub::after{
   content:""; position:absolute; left:50%; bottom:-1px; transform:translateX(-50%);
   width:60%; border-top:1.5px dashed var(--line);
 }
 .daystub.active{background:var(--ink); border-color:var(--ink); color:#fff;}
-.daystub .dn{font-family:'Space Mono',monospace; font-size:10px; opacity:.7;}
-.daystub .dd{font-weight:700; font-size:14px; margin-top:2px;}
-.daystub .dc{font-size:10px; margin-top:2px; opacity:.8;}
+.daystub .dn{
+  font-family:'Space Mono',monospace; font-size:10px; font-weight:700; letter-spacing:.04em;
+  color:var(--tangerine-d); background:#FCE9DC; border-radius:5px; padding:1px 6px; display:inline-block;
+}
+.daystub.active .dn{color:#fff; background:rgba(240,121,30,.35);}
+.daystub .dd{font-weight:700; font-size:16px; margin-top:5px; font-family:'Space Mono',monospace;}
+.daystub .wd{font-size:10px; opacity:.65; margin-top:1px;}
+.daystub .dc{font-size:11px; margin-top:4px; opacity:.9; line-height:1.3; font-weight:600;}
 
 .day-panel .city{
   display:inline-flex; align-items:center; gap:6px; font-family:'Space Mono',monospace;
@@ -432,6 +437,7 @@ footer{text-align:center; padding:26px 20px 10px; font-size:11px; color:var(--st
   <button class="tabbtn" data-tab="days">🗺️ 每日行程</button>
   <button class="tabbtn" data-tab="food">🍽️ 美食SOS</button>
   <button class="tabbtn" data-tab="shop">🛍️ 購物清單</button>
+  <button class="tabbtn" data-tab="tobuy">🧾 待買清單</button>
   <button class="tabbtn" data-tab="fx">💱 匯率</button>
   <button class="tabbtn" data-tab="pack">🧳 行前準備</button>
   <button class="tabbtn" data-tab="extra">🧭 實用小抄</button>
@@ -566,6 +572,17 @@ footer{text-align:center; padding:26px 20px 10px; font-size:11px; color:var(--st
     <div class="chiprow hide-scroll" id="shopAreaChips"></div>
     <div class="food-note">🛍️ 部分店家所在區域尚待確認，抵達前請先點地圖連結核對位置再安排順路。</div>
     <div id="shopList"></div>
+  </section>
+
+  <!-- ============ TO-BUY LIST ============ -->
+  <section class="view" id="view-tobuy">
+    <div class="section-head">
+      <div class="eyebrow">Shopping checklist</div>
+      <h2>🧾 待買清單</h2>
+      <p>兩人共用的購物清單，勾選過的項目會存在這台裝置的瀏覽器裡，隨手可以自己加新項目提醒自己。</p>
+    </div>
+    <div id="tobuyLists"></div>
+    <div class="fx-hint" style="margin-top:4px;">💡 機場免稅店可以留到最後一天再補買，不用一開始就買太重。</div>
   </section>
 
   <!-- ============ FX ============ -->
@@ -854,6 +871,7 @@ const DAYS = [
       {name:"西歸浦每日偶來市場", kr:"서귀포 매일올레시장", cat:"spot", hours:"07:00–21:00", closed:"無", note:"西歸浦市區的傳統市場，可買到柑橘類點心、蜂蜜製品及各式熟食小吃，適合早上途中採購後直接前往附近景點。", map:"https://maps.app.goo.gl/HAHVfU89cNbkQ6Nb7", navQ:"서귀포 매일올레시장"},
       {name:"濟州石頭文化公園", kr:"제주 돌문화공원", cat:"spot", hours:"09:00–18:00", closed:"週一（W1）", note:"展示濟州獨特的石頭文化，園區內有許多돌하르방造型石像，適合散步拍照。", map:"", navQ:"제주 돌문화공원"},
       {name:"山君不離", kr:"산굼부리", cat:"spot", hours:"09:00–18:00", closed:"無", note:"奇特的下陷式火山口，10月正是芒草的絕佳賞期，金黃芒草隨風搖曳的景色很適合這次旅行。地形需上下步道，建議穿舒適好走的鞋。", map:"", navQ:"산굼부리"},
+      {name:"피갈회옥（生魚片）", kr:"피갈회옥", cat:"rest", hours:"11:00–22:00（L.O.21:00）", closed:"無", note:"位於城山邑新告路22街，靠近涉地可支（섭지코지）。招牌套餐（2人份）：鯖魚生魚片、白帶魚生魚片、比目魚、真鯛、甜蝦生魚片一次到齊，還附海鮮拼盤、炸物跟烤鯖魚。中午限定另有韓食套餐（辣炒豬肉＋烤鯖魚）可選。可用CATCHTABLE候位。", map:"https://maps.app.goo.gl/iVLMmTE1q7Gyh8zV9", navQ:"피갈회옥"},
     ],
     weather:"中部山區風更明顯，芒草季節早晚偏涼，建議帽子＋防風外套。"
   },
@@ -874,8 +892,8 @@ const DAYS = [
       {name:"提早前往濟州機場", kr:"", cat:"spot", note:"07:00的班機，扣掉還車、接駁、安檢時間，這天不排早餐店，直接提早出發去機場比較穩。國內線通常建議起飛前1小時到，實際抓的時間可以再往前一點。", map:"", navQ:""},
       {name:"Verish 無鋼圈內衣", kr:"베리쉬", cat:"shop", hours:"11:00–22:00", closed:"無", note:"韓國人氣無鋼圈內衣品牌，適合購買自用或伴手禮，建議事先查好自己的韓國尺碼及尺寸對應。", map:"https://maps.app.goo.gl/Ng6oABMpFGJNCgqz9", navQ:"베리쉬"},
       {name:"Maman Gelato（聖水店）", kr:"마망젤라또 성수점", cat:"cafe", hours:"11:30–21:00", closed:"無", note:"位於首爾聖水洞的義式冰淇淋專門店，招牌義式經典口味，到首爾當天可作為下午茶點。", map:"https://maps.app.goo.gl/fvzQtvQsCxhVsMYQ6", navQ:"마망젤라또 성수점"},
-      {name:"馬鈴薯煎餅 Sinsajeon", kr:"신사전", cat:"rest", hours:"11:00–25:00（凌晨1點）", closed:"無", note:"招牌馬鈴薯煎餅及蜂巢瑪格麗（甜點），當地人氣小吃店。深夜當宵夜人多，怕辣可先詢問。", map:"https://maps.app.goo.gl/PtuJooxBwZJsLMYW6", navQ:"신사전"},
-      {name:"奶油熟成豬 Ppasam", kr:"빠삼", cat:"rest", hours:"16:30–22:30", closed:"無", note:"招牌奶油熟成豬肩肉，結合熟成技法讓肉質更軟嫩多汁，晚餐／宵夜選項，可與馬鈴薯煎餅二選一。", map:"https://maps.app.goo.gl/Xis5QmdAvRW9wqwBA", navQ:"빠삼"},
+      {name:"馬鈴薯煎餅 Sinsajeon（備案）", kr:"신사전", cat:"rest", hours:"11:00–25:00（凌晨1點）", closed:"無", note:"晚餐已改訂奶油熟成豬Ppasam，這家改為備案／宵夜選項。招牌馬鈴薯煎餅及蜂巢瑪格麗（甜點），深夜當宵夜人多，怕辣可先詢問。", map:"https://maps.app.goo.gl/PtuJooxBwZJsLMYW6", navQ:"신사전"},
+      {name:"奶油熟成豬 Ppasam（晚餐）", kr:"빠삼", cat:"rest", hours:"16:30–22:30", closed:"無", note:"✅已預約19:00，會跟UNA的韓國朋友영우一起吃。招牌奶油熟成豬肩肉，結合熟成技法讓肉質更軟嫩多汁。", map:"https://maps.app.goo.gl/Xis5QmdAvRW9wqwBA", navQ:"빠삼"},
     ],
     weather:"首爾入秋轉涼，早晚溫差明顯大於濟州，下飛機記得多加一層外套。"
   },
@@ -884,7 +902,7 @@ const DAYS = [
     spots:[
       {name:"廣藏市場", kr:"광장시장", cat:"spot", hours:"09:00–22:30（各攤位營業時間不一）", closed:"無（部分攤位週日公休）", note:"首爾最著名的傳統市場之一，招牌麻藥飯卷、綠豆煎餅、生牛肉。人潮集中，現金交易方便，建議先備好現金。", map:"", navQ:"광장시장"},
       {name:"北村韓屋村", kr:"북촌 한옥마을", cat:"spot", hours:"村落本身全天可自由參觀；官方資訊中心約10:00–17:00", closed:"無", note:"韓屋集中的傳統村落，適合拍照取景。部分巷弄為實際住宅，請保持安靜尊重居民。上午前往人潮相對較少。", map:"", navQ:"북촌한옥마을"},
-      {name:"韓牛熟成肉館 by 해봉", kr:"숙성육관by해봉", cat:"rest", hours:"平日11:30–22:00（休息14:30–17:30，L.O.21:00）／週末12:00–22:00（L.O.21:00）", closed:"無固定公休（部分連假可能公休）", note:"⚠️實際位於首爾麻浦區公德（염리동），並不在乙支路，跟北村韓屋村有一段車程距離，前往前建議先確認交通方式與時間。招牌熟成韓牛，可點不同部位比較口感，慢慢品嚐。原排乙支路烤肉店已改成這家，晚餐選項。", map:"https://maps.app.goo.gl/kUZMNjqF4WfJvEx37", navQ:"숙성육관 by 해봉"},
+      {name:"韓牛熟成肉館 by 해봉", kr:"숙성육관by해봉", cat:"rest", hours:"平日11:30–22:00（休息14:30–17:30，L.O.21:00）／週末12:00–22:00（L.O.21:00）", closed:"無固定公休（部分連假可能公休）", note:"✅已預約18:30，會跟UNA的韓國朋友영우一起吃。⚠️實際位於首爾麻浦區公德（염리동），並不在乙支路，跟北村韓屋村有一段車程距離，前往前建議先確認交通方式與時間。招牌熟成韓牛，可點不同部位比較口感，慢慢品嚐。", map:"https://maps.app.goo.gl/kUZMNjqF4WfJvEx37", navQ:"숙성육관 by 해봉"},
     ],
     weather:"首爾秋日晴朗機率高，適合韓屋村拍照，午後紫外線仍強，防曬別忘。"
   },
@@ -994,6 +1012,12 @@ const PACKING = [
   {group:"其他", icon:"🎒", items:["環保購物袋（市場採買用）","耳塞（Playce Camp Jeju隔音較弱）","小額零錢包（市場/停車場用）","行前把住宿/航班加進手機日曆"]},
 ];
 
+const TOBUY = [
+  {group:"韓國伴手禮", icon:"🍊", items:["橘子巧克力、橘子蜂蜜、橘子果乾","黑豬肉泡麵、辣雞麵","濟州當地餅乾、海鹽相關零食","蘋果梨口味小零食","濟州馬造型小紀念品","QQ麻糬（很好吃！）─樂天都有"]},
+  {group:"保養與生活用品", icon:"🧴", items:["Verish 無鋼圈內衣（Day6）","面膜、面霜（Olive Young 或藥妝店）","隨身藥品（腸胃藥、感冒藥）","ANUA按摩棒","the saem腮紅筆（鮭魚粉）","dr.althea保濕乳液","23yearsold底妝液","The Ordinary Glycolic 7%","濟州島的衣服（包含一起穿的）"]},
+  {group:"現場再決定的備案", icon:"🎲", items:["依現場看到什麼好玩再加進來"]},
+];
+
 const FLIGHTS = [
   {who:"KIKI", route:"TPE → CJU", num:"IT654", date:"10/07", time:"06:40 → 09:35", termOut:"桃園 T1", termIn:"濟州機場"},
   {who:"UNA", route:"NRT → CJU", num:"KE2126", date:"10/07", time:"16:35 → 19:30", termOut:"成田 T1", termIn:"濟州機場"},
@@ -1056,13 +1080,19 @@ function renderStayStrip(){
 let activeDay = 1;
 function renderDayStrip(){
   const el = document.getElementById('dayStrip');
-  el.innerHTML = DAYS.map(d=>`
+  el.innerHTML = DAYS.map(d=>{
+    const m = d.date.match(/^(\d{1,2}\/\d{1,2})(?:（(.+?)）)?/);
+    const md = m ? m[1] : d.date;
+    const wd = m && m[2] ? '週'+m[2] : '';
+    return `
     <button class="daystub ${d.n===activeDay?'active':''}" data-day="${d.n}">
-      <div class="dn mono">DAY</div>
-      <div class="dd">${d.n}</div>
-      <div class="dc">${d.city.slice(0,4)}</div>
+      <div class="dn">DAY ${d.n}</div>
+      <div class="dd">${md}</div>
+      <div class="wd">${wd}</div>
+      <div class="dc">${d.city}</div>
     </button>
-  `).join('');
+  `;
+  }).join('');
   el.querySelectorAll('.daystub').forEach(b=>{
     b.addEventListener('click', ()=>{ activeDay = parseInt(b.dataset.day); renderDayStrip(); renderDayPanel(); });
   });
@@ -1254,6 +1284,37 @@ function renderPacking(){
   });
 }
 
+function renderToBuy(){
+  const el = document.getElementById('tobuyLists');
+  let saved = {};
+  try{ saved = JSON.parse(localStorage.getItem('unakiki_tobuy')||'{}'); }catch(e){ saved = {}; }
+  el.innerHTML = TOBUY.map((g,gi)=>`
+    <div class="checklist-group">
+      <h4>${g.icon} ${g.group}</h4>
+      ${g.items.map((it,ii)=>{
+        const key = gi+'-'+ii;
+        const checked = saved[key] ? 'checked' : '';
+        return `<div class="citem ${checked}" data-key="${key}">
+          <div class="box">${checked?'✓':''}</div>
+          <span class="lbl">${it}</span>
+        </div>`;
+      }).join('')}
+    </div>
+  `).join('');
+  el.querySelectorAll('.citem').forEach(it=>{
+    it.addEventListener('click', ()=>{
+      const key = it.dataset.key;
+      const isChecked = it.classList.toggle('checked');
+      it.querySelector('.box').textContent = isChecked ? '✓' : '';
+      try{
+        const s = JSON.parse(localStorage.getItem('unakiki_tobuy')||'{}');
+        s[key] = isChecked;
+        localStorage.setItem('unakiki_tobuy', JSON.stringify(s));
+      }catch(e){}
+    });
+  });
+}
+
 /* ---- FX converter ---- */
 let RATE_TWD_KRW = 43.0;   // 1 TWD = ? KRW (reference default, editable)
 let RATE_JPY_KRW = 8.9;    // 1 JPY = ? KRW  -> UI shows per 100 JPY
@@ -1327,6 +1388,7 @@ renderFoodList();
 renderShopChips();
 renderShopList();
 renderPacking();
+renderToBuy();
 initFx();
 initCountdown();
 initTabs();
