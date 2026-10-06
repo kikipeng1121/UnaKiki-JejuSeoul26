@@ -325,6 +325,71 @@ section.view.active{display:block; animation:fadein .25s ease;}
 .spot .nm{font-weight:700; font-size:15px;}
 .spot .note{font-size:12.5px; color:#4b4739; line-height:1.55; margin:4px 0 8px;}
 .hours-line{font-family:'Space Mono',monospace; font-size:11px; color:var(--jade); margin:3px 0; font-weight:700;}
+
+/* ---- forecast strip ---- */
+.fstrip{display:flex; gap:8px; overflow-x:auto; padding:2px 2px 8px;}
+.fday{flex:0 0 auto; width:76px; background:#fff; border:1px solid var(--line); border-radius:12px; padding:9px 4px; text-align:center;}
+.fday.rain{background:#EAF1F8; border-color:#B9CFE6;}
+.fday .fd{font-family:'Space Mono',monospace; font-size:12px; font-weight:700;}
+.fday .fw{font-size:10px; color:var(--stone);}
+.fday .fi{font-size:22px; margin:4px 0 2px;}
+.fday .ft{font-family:'Space Mono',monospace; font-size:11px; color:var(--jade); font-weight:700;}
+.fday .fr{font-size:10.5px; color:#3b6ea5; font-weight:700; margin-top:2px;}
+.fday .fc{font-size:10px; color:var(--stone); margin-top:2px;}
+
+/* ---- day weather ---- */
+.daystub .dw{font-family:'Space Mono',monospace; font-size:11px; font-weight:700; margin-top:5px; padding:3px 0; border-radius:8px; background:#F1F6F3; color:var(--jade);}
+.daystub .dw .dwi{font-size:13px; margin-right:2px;}
+.daystub .dw.rain{background:#E3EDF7; color:#3b6ea5;}
+.daystub.active .dw{background:rgba(255,255,255,.14); color:#fff;}
+.wxbar{display:flex; align-items:center; gap:12px; margin-top:16px; padding:12px 14px; border-radius:14px; background:linear-gradient(135deg,#F3F8F5,#E8F1EC); border:1px solid rgba(47,111,94,.18);}
+.wxbar.rain{background:linear-gradient(135deg,#EEF4FA,#E1ECF6); border-color:rgba(59,110,165,.25);}
+.wxbar.night{background:linear-gradient(135deg,#EDEFF5,#E1E5F0); border-color:rgba(22,35,59,.15);}
+.wxbar .wxi{font-size:34px; line-height:1;}
+.wxbar .wxm{flex:1; min-width:0;}
+.wxbar .wxt{font-family:'Space Mono',monospace; font-size:19px; font-weight:700; display:flex; align-items:baseline; gap:2px; flex-wrap:wrap;}
+.wxbar .wxt .lo{color:#3b6ea5;}
+.wxbar .wxt .hi{color:var(--tangerine-d);}
+.wxbar .wxt .sep{color:var(--stone); margin:0 2px;}
+.wxbar .wxr{margin-left:auto; font-size:11px; font-weight:700; color:#3b6ea5; background:#fff; border-radius:999px; padding:2px 9px;}
+.wxbar .wxtip{font-size:12px; color:#4b4739; margin-top:3px; line-height:1.5;}
+
+/* ---- reorder ---- */
+.reorder-toggle{margin-top:10px; border:1.5px solid var(--tangerine); background:#fff; color:var(--tangerine-d); font-weight:700; font-size:13px; padding:7px 14px; border-radius:999px;}
+.reorder-toggle.on{background:var(--tangerine); color:#fff;}
+.reorder-panel{background:#fff; border:1.5px dashed var(--tangerine); border-radius:16px; padding:12px; margin-bottom:12px;}
+.reorder-panel[hidden]{display:none;}
+.rp-note{font-size:12px; line-height:1.65; color:#4b4739; background:var(--paper-2); border-radius:10px; padding:8px 10px; margin-bottom:10px;}
+.rlist{display:flex; flex-direction:column; gap:6px;}
+.rrow{position:relative; display:flex; align-items:center; gap:10px; background:#fff; border:1.5px solid var(--line); border-radius:12px; padding:8px 10px; touch-action:pan-y;}
+.rrow.locked{background:#F4F1EA; color:var(--stone); border-style:dashed;}
+.rrow.moved{border-color:var(--tangerine); background:#FFF6EE;}
+.rrow.dragging{z-index:5; box-shadow:0 10px 24px rgba(22,35,59,.22); opacity:.95; transition:none;}
+.rrow.drop-above::before,.rrow.drop-below::after{content:""; position:absolute; left:6px; right:6px; height:3px; border-radius:2px; background:var(--tangerine);}
+.rrow.drop-above::before{top:-5px;} .rrow.drop-below::after{bottom:-5px;}
+.rslot{width:62px; flex:0 0 auto; font-family:'Space Mono',monospace;}
+.rslot b{display:block; font-size:12px; color:var(--ink);}
+.rslot span{font-size:10.5px; color:var(--stone);}
+.rrow.locked .rslot b{color:var(--stone);}
+.rplan{flex:1; min-width:0;}
+.rplan .rt{font-weight:700; font-size:13.5px; display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
+.rplan .rt em{font-style:normal; font-size:10px; font-weight:700; color:var(--tangerine-d); background:#FCE9DC; border-radius:999px; padding:1px 7px;}
+.rplan .rs{font-size:11.5px; color:var(--stone); margin-top:1px;}
+.rctl{display:flex; align-items:center; gap:4px; flex:0 0 auto;}
+.rbtn{width:30px; height:30px; border-radius:8px; border:1px solid var(--line); background:#fff; color:var(--ink); font-size:11px;}
+.rbtn:disabled{opacity:.3;}
+.rhandle{width:36px; height:36px; display:flex; align-items:center; justify-content:center; font-size:20px; color:var(--tangerine-d); background:#FCE9DC; border-radius:10px; touch-action:none; user-select:none; -webkit-user-select:none; cursor:grab;}
+.rp-status{margin-top:10px; font-size:12.5px; border-radius:10px; padding:8px 10px;}
+.rp-status.ok{background:#E8F3EE; color:var(--jade);}
+.rp-status.warn{background:#FDEEEA; color:var(--coral);}
+.rp-status ul,.cf-box ul{margin:4px 0 0; padding-left:18px; line-height:1.7;}
+.rp-reset{margin-top:8px; width:100%; border:1px solid var(--line); background:#fff; border-radius:10px; padding:8px; font-size:13px; font-weight:600; color:var(--ink);}
+.rp-reset:disabled{opacity:.4;}
+.stubflag{position:absolute; top:-6px; right:-4px; font-size:10px; font-weight:700; background:var(--tangerine); color:#fff; border-radius:999px; padding:1px 6px; line-height:1.4;}
+.stubflag.warn{background:#fff; border:1px solid var(--coral); padding:0 4px;}
+.movedchip{margin-left:8px; vertical-align:middle; font-family:'Noto Sans TC',sans-serif; font-size:11px; font-weight:700; color:var(--tangerine-d); background:#FCE9DC; border-radius:999px; padding:2px 9px;}
+.cf-box{background:#FDEEEA; color:var(--coral); border-radius:12px; padding:9px 12px; font-size:12.5px; margin-bottom:12px;}
+.spot-warn{font-size:12px; font-weight:700; color:var(--coral); margin:3px 0;}
 .avail-line{font-size:11px; color:var(--tangerine-d); font-weight:700; margin:3px 0;}
 .spot .btnrow{display:flex; gap:8px; flex-wrap:wrap;}
 
@@ -545,7 +610,9 @@ footer{text-align:center; padding:26px 20px 10px; font-size:11px; color:var(--st
       <div class="eyebrow">Day by day</div>
       <h2>每日行程票根</h2>
       <p>點選日期查看航班、住宿與當日景點，地圖按鈕可直接開 Google 地圖或 Naver 地圖導航。</p>
+      <button class="reorder-toggle" id="reorderToggle">↕ 調整順序</button>
     </div>
+    <div class="reorder-panel" id="reorderPanel" hidden></div>
     <div class="daystrip hide-scroll" id="dayStrip"></div>
     <div class="day-panel" id="dayPanel"></div>
   </section>
@@ -614,7 +681,7 @@ footer{text-align:center; padding:26px 20px 10px; font-size:11px; color:var(--st
         <div class="rr"><span>100 JPY = ? KRW</span><input type="number" id="rateJPYKRW" step="0.01"></div>
       </div>
     </div>
-    <div class="fx-hint">預設匯率為參考值，非即時匯率，建議出發前用「更新目前匯率」帶入當天實際匯率。</div>
+    <div class="fx-hint">參考匯率更新於 10/6（中間價）：1 TWD ≈ 42.2 KRW、100 JPY ≈ 850 KRW。實際換匯或刷卡會有價差與手續費，通常比中間價差約 1–3%，可點「更新目前匯率」改成當天實際匯率。</div>
   </section>
 
   <!-- ============ PACKING ============ -->
@@ -627,15 +694,32 @@ footer{text-align:center; padding:26px 20px 10px; font-size:11px; color:var(--st
 
     <div class="wcard-row">
       <div class="wcard">
-        <div class="city">🍊 濟州</div>
-        <div class="temp mono">15–25°C</div>
-        <div class="desc">秋高氣爽但風大，早晚偏涼、日夜溫差大，仍有機會遇到颱風尾。</div>
+        <div class="city">🍊 濟州 10/7–10/11</div>
+        <div class="temp mono">15–26°C</div>
+        <div class="desc">前三天晴朗，10/10–10/11 有雨；早晚約15–17°C偏涼，10/9 東北風較強。</div>
       </div>
       <div class="wcard">
-        <div class="city">🍁 首爾</div>
-        <div class="temp mono">9–20°C</div>
-        <div class="desc">10月中旬入秋轉涼，藍天銀杏漸黃，早晚外套是必備。</div>
+        <div class="city">🍁 首爾 10/12–10/14</div>
+        <div class="temp mono">12–26°C</div>
+        <div class="desc">10/12 雲量增加，10/13–10/14 間歇性降雨；夜間低溫約12°C。</div>
       </div>
+    </div>
+
+    <div class="section-head" style="margin-bottom:8px;">
+      <div class="eyebrow">Daily forecast</div>
+      <h2 style="font-size:17px;">逐日預報</h2>
+    </div>
+    <div class="fstrip hide-scroll" id="forecastStrip"></div>
+    <div class="food-note" style="margin-top:6px;">🕐 預報於 10/6 查詢，天氣會變動，出發當天早上再看一次氣象App。10/12 之後的預報準確度較低，僅供參考。</div>
+
+    <div class="card extra-card">
+      <h4>☔ 這趟要帶傘 / 輕便雨衣</h4>
+      <ul class="klist">
+        <li><b>10/10</b>濟州降雨機率約55%，山君不離、石頭文化公園是戶外，雨天地面濕滑，鞋子選防滑的。</li>
+        <li><b>10/11</b>日出峰登頂遇雨路滑，牛島渡輪可能受風浪影響，先確認船班；20:00還車不要壓線。</li>
+        <li><b>10/13</b>首爾降雨機率約74%，北村韓屋村帶傘，廣藏市場有頂棚可躲雨；晚餐18:30預約，雨天塞車多留時間。</li>
+        <li><b>10/14</b>首爾降雨機率約60%，UNA 17:25班機，建議提早出發去仁川機場。</li>
+      </ul>
     </div>
 
     <div id="packingLists"></div>
@@ -821,7 +905,7 @@ const STAYS = [
 ];
 
 const DAYS = [
-  { n:1, date:"10/07（三）", city:"濟州", cshort:"濟州抵達",
+  { n:1, date:"10/07（三）", city:"濟州", cshort:"濟州抵達", locked:true, lockWhy:"抵達日・綁定航班",
     flights:[
       {who:"KIKI", route:"TPE ✈ CJU", num:"IT654", time:"06:40 → 09:35", termOut:"桃園 T1", termIn:"濟州機場", note:"桃園機場第一航廈出發，濟州國際機場入境"},
       {who:"UNA", route:"NRT ✈ CJU", num:"KE2126", time:"16:35 → 19:30", termOut:"成田 T1", termIn:"濟州機場", note:"成田機場第一航廈出發，於濟州會合"},
@@ -837,13 +921,13 @@ const DAYS = [
       {name:"식당 마요네즈（晚餐）", kr:"식당 마요네즈", cat:"rest", hours:"11:00–21:00（休息15:00–17:00，L.O.午餐14:20／晚餐20:10）", closed:"每月最後一個週日", note:"原사랑담은해물已改成這家，濟州人氣洋食餐廳，招牌豬排（돈테키／돈카츠）、肉丸義大利麵、蛋黃醬炒飯。位於老衡洞，離이호테우海邊、機場都近，阿蘭奇尼球偶爾會賣完。", map:"", navQ:"식당 마요네즈"},
       {name:"濟州機場接UNA", kr:"제주국제공항", cat:"spot", note:"UNA的班機19:30降落濟州，晚餐後直接前往機場接機，兩人正式在濟州會合，一起回飯店。", map:"", navQ:"제주국제공항"},
     ],
-    weather:"抵達當天多雲到晴，海風偏強，市場內建議薄外套，市場外走動很快就會覺得熱。"
+    weather:"☀️ 預報：晴，15–24°C，降雨機率0%，西北風約13 km/h。白天短袖加薄外套就夠，早晚偏涼；紫外線中等，防曬別省。"
   },
-  { n:2, date:"10/08（四）", city:"濟州・涯月", cshort:"涯月一帶",
+  { n:2, date:"10/08（四）", city:"濟州・涯月", cshort:"涯月一帶", areas:["涯月","濟州市"], lodge:"涯月",
     flights:[],
     stayOut:0, stayIn:1,
     spots:[
-      {name:"濟州東門市場（備案）", kr:"제주동문시장", cat:"spot", hours:"08:00–21:00", closed:"無", note:"10/8尾數是8，濟州民俗五日市場（逢2、7日開市）當天沒開，改成回東門市場走走或補買昨天沒逛完的。地下小吃街、橘子、海鮮乾貨都在這裡。", map:"https://maps.app.goo.gl/S7QRCHVMz4fHXXaK6", navQ:"제주동문시장"},
+      {name:"濟州東門市場（備案）", kr:"제주동문시장", cat:"spot", hours:"08:00–21:00", closed:"無", note:"濟州民俗五日市場逢2、7日開市，這趟濟州的日子（10/8–10/11）都沒開，改成去東門市場走走或補買沒逛完的。地下小吃街、橘子、海鮮乾貨都在這裡。", map:"https://maps.app.goo.gl/S7QRCHVMz4fHXXaK6", navQ:"제주동문시장"},
       {name:"大蒜麵包 Audrant Bakery（備案）", kr:"오드랑베이커리", cat:"cafe", hours:"07:00–22:00", closed:"無", note:"另一個備案方向：往咸德（Hamdeok）繞去吃大蒜麵包，招牌大蒜法棍及大蒜奶油夾餡，早上7點開門，想吃最新鮮建議早點到。", navQ:"오드랑베이커리 함덕"},
       {name:"海螺刀削麵", kr:"신제주보말칼국수", cat:"rest", hours:"08:00–15:00", closed:"週日（W7）", note:"招牌海螺刀削麵，湯頭清口不膩，早餐／午餐適合。前往前請再次確認當天是否有開。", map:"https://maps.app.goo.gl/HrwwawfyjhwjeYer9", navQ:"신제주보말칼국수"},
       {name:"海鮮麵 Noraba", kr:"노라바", cat:"rest", hours:"10:00–14:00、15:00–16:30", closed:"無", note:"招牌海鮮拉麵，湯頭濃郁帶海鮮鮮味。營業時間中間有休息，中午時段容易排隊，建議提早或避開11:30–13:00尖峰。", map:"", navQ:"노라바 제주"},
@@ -851,9 +935,9 @@ const DAYS = [
       {name:"海鮮拉麵 놀맨 Nolman（備案）", kr:"놀맨", cat:"rest", hours:"10:00–15:00（週五六到16:00）", closed:"每週二", note:"如果沒吃到Noraba，可以改吃這家。位於韓潭海邊（한담해변）正前方，全戶外座位邊吃邊看海。招牌是海鮮拉麵，蟹、蝦、淡菜料多實在，當天若老闆有捕到章魚還會加章魚。採號碼牌點餐，吃完需自己歸還餐具。風雨太大或天氣太熱可能提早收攤。", map:"https://www.google.com/maps/search/?api=1&query=제주시+애월읍+애월로1길+24", navQ:"놀맨 애월"},
       {name:"濟州黑豬（韓林店）", kr:"뽈살집한림점", cat:"rest", hours:"15:00–22:00", closed:"無", note:"濟州黑豬專門店，招牌烤黑豬三層肉及里肌肉，可搭配湯麵作為收尾。晚上用餐人多，建議提早到或電話確認是否需要候位。", map:"", navQ:"뽈살집한림점"},
     ],
-    weather:"涯月沿海風大，傍晚看海建議加一件防風外套，日落時分溫差會明顯下降。"
+    weather:"🌤️ 預報：局部晴朗，17–25°C，降雨機率1%，東北風約14 km/h。涯月沿海風大，傍晚看海建議加一件防風外套，日落後溫差明顯。"
   },
-  { n:3, date:"10/09（五）", city:"西歸浦", cshort:"西歸浦",
+  { n:3, date:"10/09（五）", city:"西歸浦", cshort:"西歸浦", areas:["西歸浦"], lodge:"西歸浦",
     flights:[], stayOut:1, stayIn:2,
     spots:[
       {name:"龍頭海岸", kr:"용머리해안", cat:"spot", hours:"09:00–17:00", closed:"無", note:"形狀像龍頭俯入海中的火山岩海岸，可沿海岸步道漫步，需注意潮汐時間，漲潮時部分步道可能封閉或不開放進入。", map:"https://maps.app.goo.gl/cpUAsWFeeGSKFzvc7", navQ:"용머리해안"},
@@ -863,9 +947,9 @@ const DAYS = [
       {name:"白帶魚 올레왕갈치", kr:"올레왕갈치", cat:"rest", hours:"10:00–22:00（L.O.21:00）", closed:"無", note:"招牌白帶魚定食，多人推薦白帶魚燒烤或紅燒。魚刺較多，不方便吃魚刺的人可先告知店家。目前狀態未預約，建議提前確認是否需候位。", map:"https://maps.app.goo.gl/frhh5Wj1Lzypr1gV9", navQ:"올레왕갈치"},
       {name:"黑豬特殊部位 Ppolsaljip", kr:"뽈살집", cat:"rest", hours:"15:00–24:00", closed:"無", note:"招牌뽈살（豬頰肉）等黑豬特殊部位，還有천겹살、비단살、눈썹살、꽃살等多種罕見部位可單點，也可點모듬스페셜（綜合拼盤）一次吃到多種口感。晚上點餐選項，位於西歸浦每日偶來市場附近。可與白帶魚二選一，另一家留作備案。", map:"https://maps.app.goo.gl/1Ntt7s1wUf9Mb1Fz5", navQ:"뽈살집 서귀포"},
     ],
-    weather:"西歸浦沿海步道偶有海浪飛濺，鞋子建議防滑防水，午後偶有短暫陣雨。"
+    weather:"☀️ 預報：大致晴朗，17–24°C，降雨機率0%，東北偏東風約21 km/h（這幾天最強）。龍頭海岸、正房瀑布一帶海風大、偶有浪花飛濺，鞋子建議防滑，帽子要抓緊。"
   },
-  { n:4, date:"10/10（六）", city:"西歸浦→城山", cshort:"石頭公園",
+  { n:4, date:"10/10（六）", city:"西歸浦→城山", cshort:"石頭公園", areas:["西歸浦","城山"], lodge:"城山",
     flights:[], stayOut:2, stayIn:3,
     spots:[
       {name:"西歸浦每日偶來市場", kr:"서귀포 매일올레시장", cat:"spot", hours:"07:00–21:00", closed:"無", note:"西歸浦市區的傳統市場，可買到柑橘類點心、蜂蜜製品及各式熟食小吃，適合早上途中採購後直接前往附近景點。", map:"https://maps.app.goo.gl/HAHVfU89cNbkQ6Nb7", navQ:"서귀포 매일올레시장"},
@@ -873,19 +957,19 @@ const DAYS = [
       {name:"山君不離", kr:"산굼부리", cat:"spot", hours:"09:00–18:00", closed:"無", note:"奇特的下陷式火山口，10月正是芒草的絕佳賞期，金黃芒草隨風搖曳的景色很適合這次旅行。地形需上下步道，建議穿舒適好走的鞋。", map:"", navQ:"산굼부리"},
       {name:"피갈회옥（生魚片）", kr:"피갈회옥", cat:"rest", hours:"11:00–22:00（L.O.21:00）", closed:"無", note:"位於城山邑新告路22街，靠近涉地可支（섭지코지）。招牌套餐（2人份）：鯖魚生魚片、白帶魚生魚片、比目魚、真鯛、甜蝦生魚片一次到齊，還附海鮮拼盤、炸物跟烤鯖魚。中午限定另有韓食套餐（辣炒豬肉＋烤鯖魚）可選。可用CATCHTABLE候位。", map:"https://maps.app.goo.gl/iVLMmTE1q7Gyh8zV9", navQ:"피갈회옥"},
     ],
-    weather:"中部山區風更明顯，芒草季節早晚偏涼，建議帽子＋防風外套。"
+    weather:"🌧️ 預報：可能有雨，19–26°C，降雨機率約55%（另一預報來源顯示更高），預計降雨約2小時。山君不離、石頭文化公園是戶外行程，建議帶傘或輕便雨衣；雨勢大時可先安排西歸浦市場、咖啡廳等室內，再回頭走戶外景點。"
   },
-  { n:5, date:"10/11（日）", city:"城山・牛島", cshort:"日出峰+牛島",
+  { n:5, date:"10/11（日）", city:"城山・牛島", cshort:"日出峰+牛島", areas:["城山","濟州市"], lodge:"濟州市",
     flights:[], stayOut:3, stayIn:4,
     spots:[
       {name:"鮑魚粥 吾照海女之家", kr:"오조해녀의집", cat:"rest", hours:"07:00–18:00", closed:"無", note:"招牌鮑魚粥，使用海女現撈鮑魚熬煮，味道清爽清淡，適合作為清早或酒後修復食。早上前往人較少，比較寬敞安靜。", map:"https://maps.app.goo.gl/pX6jtyRBELNUn4we9", navQ:"오조해녀의집"},
       {name:"城山日出峰", kr:"성산 일출봉", cat:"spot", hours:"05:00–19:00（售票至18:00，10月屬春秋季時段）", closed:"每月第一個週一（遇假日順延一天）", note:"UNESCO世界自然遺產，登頂約20–30分鐘。日出時刻人潮較少景色最美，建議提早前往，同區可順道安排海女表演。", map:"", navQ:"성산일출봉"},
       {name:"牛島", kr:"우도", cat:"act", hours:"渡輪首航約08:00，末班約17:30左右（依季節、天候調整）", closed:"無固定公休，天候不佳可能停航", note:"從城山港搭渡輪約15分鐘即可抵達，島上可租電動自行車繞島，並品嚐當地著名的花生冰淇淋。搭船需攜帶身分證件，租來的汽車無法上島（僅可在島上另租電動車／自行車）。請留意最後一班回程渡輪時間，以免錯過。", map:"", navQ:"우도"},
-      {name:"還車：濟州天使租車", kr:"제주엔젤카", cat:"act", hours:"還車時間 20:00", closed:"", note:"租期10/8 09:00–10/11 20:00到今天結束，記得預留緩衝時間，19:30前抵達比較保險，油量加回跟取車時同一格。多數不在機場直接還車，需搭店家接駁車到車庫，下船/移動時提早抓時間。", map:"", navQ:"제주엔젤카"},
+      {name:"還車：濟州天使租車", kr:"제주엔젤카", cat:"act", pin:"bottom", hours:"還車時間 20:00", closed:"", note:"租期10/8 09:00–10/11 20:00到今天結束，記得預留緩衝時間，19:30前抵達比較保險，油量加回跟取車時同一格。多數不在機場直接還車，需搭店家接駁車到車庫，下船/移動時提早抓時間。", map:"", navQ:"제주엔젤카"},
     ],
-    weather:"牛島海風強勁，渡輪偶因風浪延駛，建議預留備用時間，防風外套必備。"
+    weather:"🌦️ 預報：雲量增加，16–24°C，降雨機率約55%，降雨時間短。日出峰登頂路面遇雨會滑；牛島渡輪受風浪影響可能延駛，出發前先確認船班，早去早回，20:00還車別壓線。"
   },
-  { n:6, date:"10/12（一）", city:"濟州 → 首爾", cshort:"轉戰首爾",
+  { n:6, date:"10/12（一）", city:"濟州 → 首爾", cshort:"轉戰首爾", locked:true, lockWhy:"綁定航班與晚餐預約",
     flights:[{who:"共同", route:"CJU ✈ GMP", num:"KE1118", time:"07:00 → 08:15", termOut:"濟州 國內線", termIn:"金浦 國內線", note:"濟州國內線飛金浦機場，兩人同班機轉戰首爾"}],
     stayOut:4, stayIn:5,
     spots:[
@@ -895,29 +979,29 @@ const DAYS = [
       {name:"馬鈴薯煎餅 Sinsajeon（備案）", kr:"신사전", cat:"rest", hours:"11:00–25:00（凌晨1點）", closed:"無", note:"晚餐已改訂奶油熟成豬Ppasam，這家改為備案／宵夜選項。招牌馬鈴薯煎餅及蜂巢瑪格麗（甜點），深夜當宵夜人多，怕辣可先詢問。", map:"https://maps.app.goo.gl/PtuJooxBwZJsLMYW6", navQ:"신사전"},
       {name:"奶油熟成豬 Ppasam（晚餐）", kr:"빠삼", cat:"rest", hours:"16:30–22:30", closed:"無", note:"✅已預約19:00，會跟UNA的韓國朋友영우一起吃。招牌奶油熟成豬肩肉，結合熟成技法讓肉質更軟嫩多汁。", map:"https://maps.app.goo.gl/Xis5QmdAvRW9wqwBA", navQ:"빠삼"},
     ],
-    weather:"首爾入秋轉涼，早晚溫差明顯大於濟州，下飛機記得多加一層外套。"
+    weather:"⛅ 首爾預報：雲量增加，17–26°C，降雨機率3%。比濟州稍暖但早晚偏涼，下飛機記得備一件薄外套。"
   },
-  { n:7, date:"10/13（二）", city:"首爾", cshort:"市場+韓屋",
+  { n:7, date:"10/13（二）", city:"首爾", cshort:"市場+韓屋", locked:true, lockWhy:"綁定18:30晚餐預約",
     flights:[],
     spots:[
       {name:"廣藏市場", kr:"광장시장", cat:"spot", hours:"09:00–22:30（各攤位營業時間不一）", closed:"無（部分攤位週日公休）", note:"首爾最著名的傳統市場之一，招牌麻藥飯卷、綠豆煎餅、生牛肉。人潮集中，現金交易方便，建議先備好現金。", map:"", navQ:"광장시장"},
       {name:"北村韓屋村", kr:"북촌 한옥마을", cat:"spot", hours:"村落本身全天可自由參觀；官方資訊中心約10:00–17:00", closed:"無", note:"韓屋集中的傳統村落，適合拍照取景。部分巷弄為實際住宅，請保持安靜尊重居民。上午前往人潮相對較少。", map:"", navQ:"북촌한옥마을"},
       {name:"韓牛熟成肉館 by 해봉", kr:"숙성육관by해봉", cat:"rest", hours:"平日11:30–22:00（休息14:30–17:30，L.O.21:00）／週末12:00–22:00（L.O.21:00）", closed:"無固定公休（部分連假可能公休）", note:"✅已預約18:30，會跟UNA的韓國朋友영우一起吃。⚠️實際位於首爾麻浦區公德（염리동），並不在乙支路，跟北村韓屋村有一段車程距離，前往前建議先確認交通方式與時間。招牌熟成韓牛，可點不同部位比較口感，慢慢品嚐。", map:"https://maps.app.goo.gl/kUZMNjqF4WfJvEx37", navQ:"숙성육관 by 해봉"},
     ],
-    weather:"首爾秋日晴朗機率高，適合韓屋村拍照，午後紫外線仍強，防曬別忘。"
+    weather:"🌧️ 首爾預報：間歇性降雨，15–23°C，降雨機率約74%，預計降雨約3小時。北村韓屋村是戶外行程，記得帶傘；廣藏市場有頂棚可躲雨。晚餐18:30麻浦的預約，雨天車流慢，多留交通時間。"
   },
-  { n:8, date:"10/14（三）", city:"首爾", cshort:"UNA返程日",
+  { n:8, date:"10/14（三）", city:"首爾", cshort:"UNA返程日", locked:true, lockWhy:"綁定UNA航班",
     flights:[{who:"UNA", route:"ICN ✈ NRT", num:"KE713", time:"17:25 → 19:45", termOut:"仁川 T2", termIn:"成田 T1", note:"UNA由仁川機場第二航廈飛回成田，先行返程"}],
     stayOut:5,
     spots:[
       {name:"自由活動 / 打包購物", kr:"", cat:"spot", note:"Hyugain 11:00退房，行李可先寄放櫃檯。這天適合把前幾天沒逛完的地方補完、慢慢打包，或去離飯店近的地方吃頓輕鬆的午餐。UNA需預留前往仁川機場的交通時間（明洞出發建議抓1.5–2小時）。KIKI退房後到深夜航班之間還有一大段空檔，可以安排咖啡廳／澡堂休息，別背著行李硬逛。", map:"", navQ:""},
     ],
-    weather:"送機前多留餘裕，首爾市區到仁川機場車程易受車流影響。"
+    weather:"🌧️ 首爾預報：間歇性降雨，12–23°C，降雨機率約60%。UNA 17:25的班機，雨天去仁川機場車流更慢，建議提早出發；KIKI等到深夜航班前，室內咖啡廳／澡堂是不錯的躲雨選擇。"
   },
-  { n:9, date:"10/15（四）凌晨", city:"首爾 → 台北", cshort:"KIKI返程日",
+  { n:9, date:"10/15（四）凌晨", city:"首爾 → 台北", cshort:"KIKI返程日", locked:true, lockWhy:"綁定KIKI航班",
     flights:[{who:"KIKI", route:"ICN ✈ TPE", num:"IT603", time:"00:30 → 02:15", termOut:"仁川 T1", termIn:"桃園 T1", note:"KIKI獨自搭紅眼班機飛回桃園，注意這是10/14深夜過後的班機"}],
     spots:[],
-    weather:"深夜航班記得提前確認仁川機場往返時間，市區到機場末班交通別錯過。"
+    weather:"🌙 凌晨的首爾夜間低溫約12°C，去機場記得穿外套；深夜航班記得提前確認仁川機場往返時間，市區到機場末班交通別錯過。"
   },
 ];
 
@@ -953,8 +1037,8 @@ const FOOD = [
   {area:"牛島", name:"Udo Sand", kr:"우도샌드", cat:"cafe", backup:true, note:"牛島人氣咖啡廳，招牌花生相關飲品甜點，牛島以花生聞名可順道一嚐。營業時間請以Naver地圖現場確認。", map:"https://maps.app.goo.gl/MfqAW6kdG2DM1AEW8", navQ:"우도샌드"},
   // 首爾
   {area:"首爾", name:"乙支路烤肉店", kr:"을지갈매기", cat:"rest", backup:true, hours:"17:00–23:00", closed:"週一（W1）", note:"原Day7晚餐，已改排韓牛熟成肉館by해봉，此家改為備案。招牌豬頸肉。", map:"https://maps.app.goo.gl/Mw6DZDg8CRgYTCDZA", navQ:"을지갈매기"},
-  {area:"首爾", name:"馬鈴薯煎餅 Sinsajeon", kr:"신사전", cat:"rest", backup:false, hours:"11:00–25:00（凌晨1點）", closed:"無", note:"Day6備選晚餐/宵夜，招牌馬鈴薯煎餅及蜂巢瑪格麗。", navQ:"신사전"},
-  {area:"首爾", name:"奶油熟成豬 Ppasam", kr:"빠삼", cat:"rest", backup:true, hours:"16:30–22:30", closed:"無", note:"Day6另一備案，招牌奶油熟成豬肩肉，肉質軟嫩多汁。", navQ:"빠삼"},
+  {area:"首爾", name:"馬鈴薯煎餅 Sinsajeon", kr:"신사전", cat:"rest", backup:true, hours:"11:00–25:00（凌晨1點）", closed:"無", note:"Day6晚餐已改訂Ppasam，這家留作備案／宵夜，招牌馬鈴薯煎餅及蜂巢瑪格麗。", navQ:"신사전"},
+  {area:"首爾", name:"奶油熟成豬 Ppasam", kr:"빠삼", cat:"rest", backup:false, hours:"16:30–22:30", closed:"無", note:"Day6晚餐已預約19:00（與UNA的韓國朋友영우同行），招牌奶油熟成豬肩肉，肉質軟嫩多汁。", navQ:"빠삼"},
   {area:"首爾", name:"Maman Gelato 聖水店", kr:"마망젤라또 성수점", cat:"cafe", backup:false, hours:"11:30–21:00", closed:"無", note:"Day6下午茶已排定，義式冰淇淋專門店。", map:"https://maps.app.goo.gl/fvzQtvQsCxhVsMYQ6", navQ:"마망젤라또 성수점"},
   {area:"首爾", name:"朝朝刀削麵（市廳店）", kr:"조조칼국수 시청점", cat:"rest", backup:true, note:"首爾市廳站附近的刀削麵連鎖店，適合當快速午餐。營業時間請以Naver地圖現場確認。", map:"https://maps.app.goo.gl/E7taU1HR3dAhgM6YA", navQ:"조조칼국수 시청점"},
   {area:"首爾", name:"韓貞仙（聖水店）", kr:"한정선 성수점", cat:"cafe", backup:true, note:"聖水洞人氣甜點咖啡廳，逛完聖水商圈可順道休息。營業時間請以Naver地圖現場確認。", map:"https://maps.app.goo.gl/X3KbEr6oJ4XQmnXE8", navQ:"한정선 성수점"},
@@ -1012,6 +1096,31 @@ const PACKING = [
   {group:"其他", icon:"🎒", items:["環保購物袋（市場採買用）","耳塞（Playce Camp Jeju隔音較弱）","小額零錢包（市場/停車場用）","行前把住宿/航班加進手機日曆"]},
 ];
 
+const FORECAST = [
+  {d:"10/07", w:"三", c:"濟州", i:"☀️", lo:15, hi:24, r:0},
+  {d:"10/08", w:"四", c:"濟州", i:"🌤️", lo:17, hi:25, r:1},
+  {d:"10/09", w:"五", c:"濟州", i:"☀️", lo:17, hi:24, r:0},
+  {d:"10/10", w:"六", c:"濟州", i:"🌧️", lo:19, hi:26, r:55},
+  {d:"10/11", w:"日", c:"濟州", i:"🌦️", lo:16, hi:24, r:55},
+  {d:"10/12", w:"一", c:"首爾", i:"⛅", lo:17, hi:26, r:3},
+  {d:"10/13", w:"二", c:"首爾", i:"🌧️", lo:15, hi:23, r:74},
+  {d:"10/14", w:"三", c:"首爾", i:"🌧️", lo:12, hi:23, r:60},
+];
+function renderForecast(){
+  const el = document.getElementById('forecastStrip');
+  if(!el) return;
+  el.innerHTML = FORECAST.map(f=>`
+    <div class="fday ${f.r>=50?'rain':''}">
+      <div class="fd">${f.d}</div>
+      <div class="fw">週${f.w}</div>
+      <div class="fi">${f.i}</div>
+      <div class="ft">${f.lo}–${f.hi}°C</div>
+      <div class="fr">☂ ${f.r}%</div>
+      <div class="fc">${f.c}</div>
+    </div>
+  `).join('');
+}
+
 const TOBUY = [
   {group:"韓國伴手禮", icon:"🍊", items:["橘子巧克力、橘子蜂蜜、橘子果乾","黑豬肉泡麵、辣雞麵","濟州當地餅乾、海鹽相關零食","蘋果梨口味小零食","濟州馬造型小紀念品","QQ麻糬（很好吃！）─樂天都有"]},
   {group:"保養與生活用品", icon:"🧴", items:["Verish 無鋼圈內衣（Day6）","面膜、面霜（Olive Young 或藥妝店）","隨身藥品（腸胃藥、感冒藥）","ANUA按摩棒","the saem腮紅筆（鮭魚粉）","dr.althea保濕乳液","23yearsold底妝液","The Ordinary Glycolic 7%","濟州島的衣服（包含一起穿的）"]},
@@ -1057,9 +1166,9 @@ function renderTickets(){
 
 function renderOverviewTimeline(){
   const el = document.getElementById('overviewTimeline');
-  el.innerHTML = DAYS.map(d=>`
+  el.innerHTML = viewDays().map(d=>`
     <div class="tl-item">
-      <div class="d">DAY ${d.n} · ${d.date}</div>
+      <div class="d">DAY ${d.n} · ${d.date}${d.moved?' · ↕':''}</div>
       <div class="t">${d.city}</div>
       <div class="s">${d.cshort}${d.flights.length? ' · ✈ ' + d.flights.map(f=>f.route).join(' / ') : ''}</div>
     </div>
@@ -1077,18 +1186,208 @@ function renderStayStrip(){
   `).join('');
 }
 
+
+/* =====================================================
+   REORDER : 日期(slot)固定，行程(plan)可拖曳
+===================================================== */
+const BASE = DAYS;
+let ORDER = BASE.map((_,i)=>i);          // ORDER[slot] = plan index
+const WD = {日:0,一:1,二:2,三:3,四:4,五:5,六:6};
+function unlockedSlots(){ return BASE.map((d,i)=>i).filter(i=>!BASE[i].locked); }
+function saveOrder(){ try{ localStorage.setItem('unakiki_order', JSON.stringify(ORDER)); }catch(e){} }
+function loadOrder(){
+  try{
+    const o = JSON.parse(localStorage.getItem('unakiki_order')||'null');
+    const ok = Array.isArray(o) && o.length===BASE.length &&
+      [...o].sort((a,b)=>a-b).every((v,i)=>v===i) &&
+      BASE.every((d,i)=>!d.locked || o[i]===i);
+    if(ok) ORDER = o;
+  }catch(e){}
+}
+function viewDays(){
+  return BASE.map((slot,i)=>{
+    const plan = BASE[ORDER[i]];
+    const top = slot.spots.filter(sp=>sp.pin==='top');
+    const bottom = slot.spots.filter(sp=>sp.pin==='bottom');
+    const movable = plan.spots.filter(sp=>!sp.pin);
+    return Object.assign({}, slot, {
+      city: plan.city, cshort: plan.cshort, areas: plan.areas,
+      spots: [...top, ...movable, ...bottom],
+      planN: plan.n, moved: ORDER[i]!==i
+    });
+  });
+}
+function slotOfPlan(k){ return ORDER.indexOf(k-1)+1; }       // k = 原本的 DAY 編號
+function slotWeekday(d){ const m = d.date.match(/（(.)）/); return m ? WD[m[1]] : null; }
+function closedWeekdays(str){
+  if(!str || /每月/.test(str)) return [];
+  const out = []; const re = /週([一二三四五六日])/g; let m;
+  while((m = re.exec(str))) out.push(WD[m[1]]);
+  return out;
+}
+function closedToday(sp, d){
+  const wd = slotWeekday(d);
+  return wd!=null && closedWeekdays(sp.closed).includes(wd);
+}
+function conflictsFor(d){
+  const out = [];
+  d.spots.forEach(sp=>{
+    if(closedToday(sp, d)) out.push(`${sp.name.replace(/（.*?）/g,'')} 當天（週${d.date.match(/（(.)）/)[1]}）公休`);
+  });
+  if(d.moved && d.lodge && d.areas && !d.areas.includes(d.lodge)){
+    out.push(`今晚住宿在${d.lodge}，這天行程集中在${d.areas.join('／')}，注意移動時間`);
+  }
+  return out;
+}
+function movePlan(from, to){
+  const U = unlockedSlots();
+  const plans = U.map(i=>ORDER[i]);
+  const a = U.indexOf(from), b = U.indexOf(to);
+  if(a<0 || b<0 || a===b) return;
+  const [p] = plans.splice(a,1); plans.splice(b,0,p);
+  U.forEach((slot,k)=>{ ORDER[slot] = plans[k]; });
+  saveOrder(); renderAllDays();
+}
+function nudge(slot, dir){
+  const U = unlockedSlots(); const k = U.indexOf(slot)+dir;
+  if(k<0 || k>=U.length) return;
+  movePlan(slot, U[k]);
+}
+function resetOrder(){ ORDER = BASE.map((_,i)=>i); saveOrder(); renderAllDays(); }
+function renderAllDays(){
+  renderOverviewTimeline(); renderDayStrip(); renderDayPanel(); renderReorderPanel(); renderFoodList();
+}
+function dateParts(d){
+  const m = d.date.match(/^(\d{1,2}\/\d{1,2})(?:（(.+?)）)?/);
+  return {md: m?m[1]:d.date, wd: m&&m[2] ? '週'+m[2] : ''};
+}
+function renderReorderPanel(){
+  const el = document.getElementById('reorderPanel');
+  if(!el) return;
+  const days = viewDays();
+  const U = unlockedSlots();
+  const issues = [];
+  days.forEach(d=> conflictsFor(d).forEach(t=>issues.push(`DAY ${d.n}：${t}`)));
+  el.innerHTML = `
+    <div class="rp-note">拖曳右側 <b>⠿</b> 或按 ▲▼ 調整行程。<b>日期、住宿、租車、航班都固定在原本日期</b>，只有「這天玩什麼」會跟著移動，其他天自動順移。🔒 的日子綁定航班或預約，不能移動。</div>
+    <div class="rlist" id="rlist">
+      ${days.map((d,i)=>{
+        const {md, wd} = dateParts(d);
+        const u = U.indexOf(i);
+        return `<div class="rrow ${d.locked?'locked':''} ${d.moved?'moved':''}" data-slot="${i}">
+          <div class="rslot"><b>DAY ${d.n}</b><span>${md} ${wd}</span></div>
+          <div class="rplan">
+            <div class="rt">${d.city}${d.moved?`<em>原DAY${d.planN}</em>`:''}</div>
+            <div class="rs">${d.locked ? '🔒 '+d.lockWhy : d.cshort}</div>
+          </div>
+          ${d.locked ? '' : `<div class="rctl">
+            <button class="rbtn" data-act="up" ${u===0?'disabled':''}>▲</button>
+            <button class="rbtn" data-act="down" ${u===U.length-1?'disabled':''}>▼</button>
+            <div class="rhandle" title="拖曳">⠿</div>
+          </div>`}
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="rp-status ${issues.length?'warn':'ok'}">
+      ${issues.length ? '<b>⚠️ 需要注意</b><ul>'+issues.map(t=>`<li>${t}</li>`).join('')+'</ul>' : '✅ 目前沒有公休或住宿距離的衝突'}
+    </div>
+    <button class="rp-reset" id="rpReset" ${ORDER.every((v,i)=>v===i)?'disabled':''}>↩︎ 還原原本順序</button>`;
+  el.querySelectorAll('.rbtn').forEach(b=>{
+    b.addEventListener('click', ()=> nudge(+b.closest('.rrow').dataset.slot, b.dataset.act==='up' ? -1 : 1));
+  });
+  const rs = document.getElementById('rpReset'); if(rs) rs.addEventListener('click', resetOrder);
+  bindDrag();
+}
+function bindDrag(){
+  const list = document.getElementById('rlist'); if(!list) return;
+  list.querySelectorAll('.rhandle').forEach(h=>{
+    h.addEventListener('pointerdown', e=>{
+      e.preventDefault();
+      const row = h.closest('.rrow'); const from = +row.dataset.slot;
+      const rows = [...list.querySelectorAll('.rrow:not(.locked)')];
+      const slots = rows.map(r=>+r.dataset.slot);
+      const centers = rows.map(r=>{ const rc = r.getBoundingClientRect(); return rc.top + rc.height/2; });
+      const startY = e.clientY; let target = from;
+      try{ h.setPointerCapture(e.pointerId); }catch(_){}
+      row.classList.add('dragging');
+      const clear = ()=> rows.forEach(r=>r.classList.remove('drop-above','drop-below'));
+      const move = ev=>{
+        row.style.transform = `translateY(${ev.clientY-startY}px)`;
+        let k = 0, best = 1e9;
+        centers.forEach((c,idx)=>{ const dd = Math.abs(ev.clientY - c); if(dd<best){ best = dd; k = idx; } });
+        target = slots[k]; clear();
+        if(target<from) rows[k].classList.add('drop-above');
+        if(target>from) rows[k].classList.add('drop-below');
+      };
+      const end = ev=>{
+        h.removeEventListener('pointermove', move);
+        h.removeEventListener('pointerup', end);
+        h.removeEventListener('pointercancel', cancel);
+        row.classList.remove('dragging'); row.style.transform = ''; clear();
+        if(target!==from) movePlan(from, target);
+      };
+      const cancel = ()=>{
+        h.removeEventListener('pointermove', move);
+        h.removeEventListener('pointerup', end);
+        h.removeEventListener('pointercancel', cancel);
+        row.classList.remove('dragging'); row.style.transform = ''; clear();
+      };
+      h.addEventListener('pointermove', move);
+      h.addEventListener('pointerup', end);
+      h.addEventListener('pointercancel', cancel);
+    });
+  });
+}
+function initReorder(){
+  const btn = document.getElementById('reorderToggle'); const panel = document.getElementById('reorderPanel');
+  if(!btn || !panel) return;
+  btn.addEventListener('click', ()=>{
+    const open = panel.hasAttribute('hidden');
+    if(open) panel.removeAttribute('hidden'); else panel.setAttribute('hidden','');
+    btn.classList.toggle('on', open);
+    btn.textContent = open ? '✕ 收起' : '↕ 調整順序';
+  });
+  renderReorderPanel();
+}
+
 let activeDay = 1;
+const WX_TIP = {
+  1:"晴朗舒適，薄外套＋防曬就夠",
+  2:"海邊風大，帶防風外套",
+  3:"東北風最強約21 km/h，海邊帽子抓緊、鞋要防滑",
+  4:"降雨機率高，帶傘；戶外景點遇雨路滑，雨大先排室內",
+  5:"有短暫降雨，戶外／海上行程先確認天候；20:00還車別壓線",
+  6:"下飛機加一件薄外套",
+  7:"降雨機率高，帶傘；戶外景點備室內替案，雨天塞車多留時間",
+  8:"雨天去機場提早出發",
+};
+function wxOf(n){ return n>=1 && n<=FORECAST.length ? FORECAST[n-1] : null; }
+function wxBar(d){
+  const w = wxOf(d.n);
+  if(!w){
+    return `<div class="wxbar night"><div class="wxi">🌙</div><div class="wxm"><div class="wxt">夜間約12°C</div><div class="wxtip">去機場穿外套，確認末班交通別錯過</div></div></div>`;
+  }
+  return `<div class="wxbar ${w.r>=50?'rain':''}">
+    <div class="wxi">${w.i}</div>
+    <div class="wxm">
+      <div class="wxt"><span class="lo">${w.lo}°</span><span class="sep">–</span><span class="hi">${w.hi}°C</span><span class="wxr">☂ ${w.r}%</span></div>
+      <div class="wxtip">${WX_TIP[d.n]||''}</div>
+    </div>
+  </div>`;
+}
+
 function renderDayStrip(){
   const el = document.getElementById('dayStrip');
-  el.innerHTML = DAYS.map(d=>{
-    const m = d.date.match(/^(\d{1,2}\/\d{1,2})(?:（(.+?)）)?/);
-    const md = m ? m[1] : d.date;
-    const wd = m && m[2] ? '週'+m[2] : '';
+  el.innerHTML = viewDays().map(d=>{
+    const {md, wd} = dateParts(d);
+    const bad = conflictsFor(d).length > 0;
     return `
     <button class="daystub ${d.n===activeDay?'active':''}" data-day="${d.n}">
+      ${bad ? '<span class="stubflag warn">⚠️</span>' : (d.moved ? '<span class="stubflag">↕</span>' : '')}
       <div class="dn">DAY ${d.n}</div>
       <div class="dd">${md}</div>
       <div class="wd">${wd}</div>
+      ${wxOf(d.n) ? `<div class="dw ${wxOf(d.n).r>=50?'rain':''}"><span class="dwi">${wxOf(d.n).i}</span>${wxOf(d.n).lo}–${wxOf(d.n).hi}°</div>` : ''}
       <div class="dc">${d.city}</div>
     </button>
   `;
@@ -1113,7 +1412,7 @@ function mapBtns(map, navQ){
 }
 
 function renderDayPanel(){
-  const d = DAYS.find(x=>x.n===activeDay);
+  const d = viewDays().find(x=>x.n===activeDay);
   const el = document.getElementById('dayPanel');
 
   let flightsHtml = d.flights.map(f=>`
@@ -1168,19 +1467,22 @@ function renderDayPanel(){
         ${catTag(sp.cat)}
       </div>
       ${hoursLine(sp.hours, sp.closed)}
+      ${closedToday(sp, d) ? '<div class="spot-warn">🚫 這天是這家的公休日，請換一家或調整日期</div>' : ''}
       ${sp.note? `<div class="note">${sp.note}</div>`:''}
       <div class="btnrow">${mapBtns(sp.map, sp.navQ)}</div>
     </div>
   `).join('');
 
+  const cf = conflictsFor(d);
   el.innerHTML = `
     <div class="card">
       <div class="city">DAY ${d.n} · ${d.date}</div>
-      <h3>${d.city}</h3>
+      <h3>${d.city}${d.moved ? `<span class="movedchip">↕ 原 DAY ${d.planN} 的行程</span>` : ''}</h3>
+      ${cf.length ? `<div class="cf-box"><b>⚠️ 這天要注意</b><ul>${cf.map(t=>`<li>${t}</li>`).join('')}</ul></div>` : ''}
       ${flightsHtml}
       ${stayHtml}
       ${spotsHtml || '<div class="note">這天沒有排定景點，自由發揮 🍃</div>'}
-      <div class="dayweather">🌤️ <div>${d.weather}</div></div>
+      ${wxBar(d)}
     </div>
   `;
 }
@@ -1208,7 +1510,7 @@ function renderFoodList(){
             <div class="fi-nm">${f.name} ${catTag(f.cat)} ${f.backup? '<span class="badge-backup">備案</span>':''}</div>
             ${f.avail? `<div class="avail-line">📍 ${f.avail}</div>`:''}
             ${hoursLine(f.hours, f.closed)}
-            <div class="fi-note">${f.note}</div>
+            <div class="fi-note">${f.note.replace(/Day([2-5])(?!\d)/g, (m,k)=>'Day'+slotOfPlan(+k))}</div>
           </div>
           <div class="fi-r">
             <a class="pill nav" href="${N(f.navQ||f.name)}" target="_blank" rel="noopener">🧭</a>
@@ -1316,8 +1618,8 @@ function renderToBuy(){
 }
 
 /* ---- FX converter ---- */
-let RATE_TWD_KRW = 43.0;   // 1 TWD = ? KRW (reference default, editable)
-let RATE_JPY_KRW = 8.9;    // 1 JPY = ? KRW  -> UI shows per 100 JPY
+let RATE_TWD_KRW = 42.2;   // 1 TWD = ? KRW (10/6 中間價參考值, editable)
+let RATE_JPY_KRW = 8.5;    // 1 JPY = ? KRW (10/6 中間價參考值) -> UI shows per 100 JPY
 function initFx(){
   const krw = document.getElementById('fxKRW');
   const jpy = document.getElementById('fxJPY');
@@ -1379,6 +1681,7 @@ function initTabs(){
 
 /* ---- init ---- */
 renderTickets();
+loadOrder();
 renderOverviewTimeline();
 renderStayStrip();
 renderDayStrip();
@@ -1388,9 +1691,11 @@ renderFoodList();
 renderShopChips();
 renderShopList();
 renderPacking();
+renderForecast();
 renderToBuy();
 initFx();
 initCountdown();
+initReorder();
 initTabs();
 </script>
 </body>
